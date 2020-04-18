@@ -21,6 +21,14 @@ the 414 strains. The names of the files correspond to columns in `universal_sing
 then aligned using **Mafft** in the linsi mode. After that we concatenated the obtained alignments and constructed a 
 phylogenetic using **RAxML** with the GTR+Gamma model and 100 bootstrap replicates.
 
+### Alignments_nt/
+Each `.fa.o` file represents a nucleotide alignment of the corresponding orthologous group obtained by using 
+**Mafft** in the linsi mode. The dir also includes the cancatenated alignment.
+
+### Alignments_codons/
+Each `.fa` file represents a codon (nucleotide) alignment of the corresponding orthologous group obtained by using 
+**MACSE**. All frameshifts were treated as recommended by the tool tutorial. The dir also includes the cancatenated alignment.
+
 ### total_stats.csv
 In this project we analysed 414 complete genomes including 35 _Shigella_ spp. genomes, 41 STEC genomes, 31 ExPEC genomes, 
 8 APEC genomes, 7 ETEC genomes, 3 EPEC and AIEC genomes each, 2 EAEC genomes, and 1 EIEC genome. This table gives more detail 

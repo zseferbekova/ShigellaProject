@@ -12,4 +12,4 @@ tree_clustered <- ggrasp.cluster(tree, num.clusters = 7)
 plot(tree_clustered)
 
 ## Write the results to an iTOL annotation file
-> ggrasp.write(tree_clustered, type="itol", "Clusters.txt")
+ggrasp.write(tree_clustered, type="itol", "Clusters.txt")
