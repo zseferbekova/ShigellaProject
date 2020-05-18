@@ -3,6 +3,7 @@ library(ape)
 library(reshape2)
 library(tidyverse)
 library(vroom)
+library(ggpubr)
 
 ## Import total_stats.csv and leave only assembly names and strain names
 stats <- as.data.frame(read.csv("../Data/total_stats.csv"), stringsAsFactors = F)
@@ -12,7 +13,7 @@ mapped_names <- stats %>%
 rownames(mapped_names) <- mapped_names$genome
 
 ## Import the phylogenetic tree
-tree <- read.tree('../Data/Tree.nwk')
+tree <- read.tree('../Data/nt_tree_midpoint.nwk')
 
 ## Get a distance matrix from the tree
 dist_matrix <- as.data.frame(cophenetic(tree), stringsAsFactors = F)
@@ -73,10 +74,10 @@ joint_df <- joint_df %>%
 #                                            ifelse(((group1 == 'Shigella sonnei') & (group2 == 'Shigella flexneri')) | ((group1 == 'Shigella flexneri') & (group2 == 'Shigella sonnei')), 'S. sonnei vs S. flexneri',
 #                                                   ifelse(((group1 == 'Shigella boydii') & (group2 == 'Shigella flexneri')) | ((group1 == 'Shigella flexneri') & (group2 == 'Shigella boydii')), 'S. boydii vs S. flexneri', '')))))))
 
-## Plot
+## Plot phylogenetic distance vs number of syntenic blocks
 ggplot(data = joint_df, 
             aes(x = num_blocks, y = distance)) +
-  geom_point(aes(color = group), size = 3) +
+  geom_point(aes(color = group), size = 3, shape=1) +
   #geom_smooth(method = 'lm', se = F, color = "grey") +
   theme_classic() + theme(text = element_text(size=15)) +
   labs(x = "Number of blocks", 
@@ -84,5 +85,62 @@ ggplot(data = joint_df,
   color = "2 genomes belong to")
 
 ## Save the plot
-ggsave(file="<Name>.png", device="png", dpi = 480, width = 6, height = 5)
+ggsave(file="<Name>1.png", device="png", dpi = 480, width = 10, height = 5)
+
+
+## Select intersection for '2 E.coli' and 'Shigella & E.coli'
+max_distance = max(joint_df[joint_df$group == '2 E.coli', 'distance'])
+min_distance = min(joint_df[joint_df$group == 'Shigella & E.coli', 'distance'])
+
+## Plot phylogenetic distance vs number of syntenic blocks
+ggplot() +
+  geom_point(data = filter(joint_df, (distance < min_distance) | (distance > max_distance), group != '2 Shigella'), 
+             aes(x = num_blocks, y = distance), 
+             size = 2, color='grey') +
+  
+  geom_point(data = filter(joint_df, distance >= min_distance, distance <= max_distance, group != '2 Shigella'), 
+             aes(x = num_blocks, y = distance, color = group), size = 2, shape=1) +
+
+  theme_classic() + theme(text = element_text(size=15)) +
+  
+  labs(x = "Number of blocks", 
+       y = "Phylogenetic distance",
+       color = "2 genomes belong to") +
+  
+  geom_hline(yintercept = min_distance, linetype = 'dashed') +
+  geom_hline(yintercept = max_distance, linetype = 'dashed')
+
+## Add a column with blocks/distance ratio
+filtered_joint_df <- joint_df %>%
+  filter(distance >= min_distance, distance <=max_distance) %>%
+  mutate(ratio = num_blocks / distance)
+
+## Plot boxplots and compare the ratio
+ggplot(filter(filtered_joint_df, group %in% c("Shigella & E.coli", "2 E.coli")), 
+       aes(x=group, y=ratio, color = group, fill = group)) +
+  
+  geom_boxplot(
+    outlier.colour="red",
+    outlier.fill="red",
+    outlier.size=2,
+    # custom boxes
+    #color="blue",
+    #fill="blue",
+    alpha=0.2,
+  ) +
+  
+  xlab("") +
+  
+  stat_compare_means(comparisons = list(c("Shigella & E.coli", "2 E.coli")), method='wilcox.test', method.args =list(alternative = "greater"), aes(label = paste0("p = ", ..p.format..))) +
+  
+  ylab("Blocks/distance ratio") +
+  theme_linedraw() +
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    text = element_text(size = 14)
+  )
+
+## Save the plot
+ggsave("<Name>.png", device = "png", dpi = 720, width = 14, height = 9)
 
