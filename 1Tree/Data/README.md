@@ -31,6 +31,9 @@ Each `.fa` file represents a codon (nucleotide) alignment of the corresponding o
 
 ### total_stats.csv
 In this project we analysed 414 complete genomes including 35 _Shigella_ spp. genomes, 41 STEC genomes, 31 ExPEC genomes, 
-8 APEC genomes, 7 ETEC genomes, 3 EPEC and AIEC genomes each, 2 EAEC genomes, and 1 EIEC genome. This table gives more detail 
-and is also available online: 
-https://docs.google.com/spreadsheets/d/1URebV5iYzmmJK-fSYTWbeDE2Hyic2sc71lvp7vBnzk0/edit?usp=sharing.
+8 APEC genomes, 7 ETEC genomes, 3 EPEC and AIEC genomes each, 2 EAEC genomes, and 1 EIEC genome. This table gives more detail.
+
+### excluded_strains.csv
+We excluded clones and closely related _E. coli_ strains that formed plateaus in the phylognetic tree from further analysis.
+This table gives more detail on the excluded strains.
+
