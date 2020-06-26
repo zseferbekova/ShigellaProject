@@ -6,4 +6,4 @@ R script to divide all strains in the tree into 7 clusters corresponding to the 
 package.
 
 ### Length_boxplot.R
-R script to make boxplots for comparison of genome sizes (fig. 2, S1). 
+R script to make boxplots for comparison of genome sizes (fig. 2, S2). 

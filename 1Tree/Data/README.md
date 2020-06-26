@@ -12,8 +12,7 @@ orthologous groups.
 
 ### Genomes_fna/
 Nucleotide sequences of all protein-coding genes of the 414 strains. This data and `universal_singlecopy_orthologs.csv` 
-were used to make files with nucleotide sequences
-of orthologs from each orthologous group. 
+were used to make files with nucleotide sequences of orthologs from each orthologous group. 
 
 ### Orthologs/
 Each `.fa` file represents an orthologous group and includes nucleotide sequences of orthologs from 
