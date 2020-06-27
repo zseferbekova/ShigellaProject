@@ -12,3 +12,5 @@ This directory contains data, scripts and results corresponding to **2. Accumula
 ### 3Inversions
 This directory contains data, scripts and results corresponding to **3. Rates of rearrangements**.
 
+### 4Speciation
+This directory contains data, scripts and results corresponding to **4. Shigella-specific rearrangements**.
