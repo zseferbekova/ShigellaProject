@@ -1,2 +1,2 @@
 # 1Tree
-This directory contains data, scripts and results corresponding to **1. Structure of the phylogenetic tree of _E. coli_ and _Shigella_ spp.**
+This directory contains data, scripts and results corresponding to **Structure of the phylogenetic tree and accumulation of IS elements**

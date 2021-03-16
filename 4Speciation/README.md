@@ -1,2 +1,2 @@
 # 4Speciation 
-This directory contains data, scripts and results corresponding to **4. Shigella-specific rearrangements**.
+This directory contains data and scripts corresponding to **Parallel genome rearrangements**.
